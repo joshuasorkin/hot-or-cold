@@ -114,8 +114,14 @@ io.on('connection',socket=>{
       playerMap.create_player(socket.id,message);
     }
     else{
-      let coordinates_prev =
+      let distance_difference =
       playerMap.update_player_coordinates(socket.id,message);
+      if(distance_difference > 0){
+        io.to(socket.id).emit('hot-or-cold','cold');
+      }
+      if(distance_difference < 0){
+        io.to(socket.id).emit('hot-or-cold','hot');
+      }
     }
   });
   socket.on('disconnect',message=>{

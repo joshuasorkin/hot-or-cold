@@ -67,6 +67,10 @@ async function decideCoordinateTransmission(){
     }
 }
 
+function renderHotOrCold(message){
+    hotOrCold.innerText = message;
+}
+
 function transmitCoordinates(coordinates){
     socket.emit('coordinates',coordinates);
 }

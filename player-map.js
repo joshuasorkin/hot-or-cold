@@ -10,12 +10,13 @@ class PlayerMap {
     create_player(player_id,player_coordinates){
         let properties = {
             coordinates : player_coordinates,
-            player_id:player_id
+            player_id:player_id,
+            closest_target:this.closest_target(player_id)
         }
         this.map.set(player_id,properties);
     }
 
-    closest_target_distance(player_id){
+    closest_target(player_id){
         let player_coordinates = this.get_player_coordinates(player_id);
         let closest_target_id;
         //default to negative until a target is found
@@ -29,6 +30,10 @@ class PlayerMap {
                     closest_target_id = target_id;
                 }
             }
+        });
+        return {
+            distance:closest_target_distance,
+            id:closest_target_id
         }
     }
 
@@ -37,8 +42,18 @@ class PlayerMap {
     }
 
     update_player_coordinates(player_id,coordinates){
+        //get the player's current properties
         let properties = this.get_player_properties(player_id);
+        //update position with the player's new coordinates
         properties.coordinates = coordinates;
+        //find the new closest target
+        let new_closest_target = this.closest_target(player_id);
+        //get the difference between new closest target distance and previous closest target distance
+        let closest_target_difference = new_closest_target.distance - properties.closest_target.distance
+        //todo: need to deal with edge cases:
+        //-there are no other players (new closest target distance = -1)
+        properties.closest_target = new_closest_target;
+        return closest_target_difference;
     }
     get_player_coordinates(player_id){
         return this.map.get(player_id).coordinates;
