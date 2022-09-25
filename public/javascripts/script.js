@@ -12,6 +12,7 @@ let long_current;
 
 function testUI(){
     let coordinates = getCoordinates();
+    console.log({coordinates});
     lat_current = coordinates.latitude;
     long_current = coordinates.longitude;
     lat.innerText = lat_current;
@@ -22,6 +23,7 @@ function testUI(){
 
 function getCoordinates(){
     let coordinates = navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude);
         return {
             latitude:position.coords.latitude,
             longitude:position.coords.longitude
