@@ -9,6 +9,7 @@ const reveal = document.querySelector('.reveal');
 
 let lat_current;
 let long_current;
+let coordinates;
 
 function testUI(){
     let coordinates = getCoordinates();
@@ -20,16 +21,20 @@ function testUI(){
     reveal.innerText = "reveal";
 }
 
+function createCoordinatesObject(position){
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
+    output = {
+        latitude:position.coords.latitude,
+        longitude:position.coords.longitude
+    };
+}
+
 function getCoordinates(){
-    let coordinates = navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.latitude);
-        return {
-            "latitude":position.coords.latitude,
-            "longitude":position.coords.longitude
-        }
-    })
+    navigator.geolocation.getCurrentPosition(position => {
+        coordinates = createCoordinatesObject(position);
+    });
     console.log({coordinates});
-    return coordinates;
 }
 
 function sameCoordinates(coordinates){
