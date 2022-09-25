@@ -8,12 +8,13 @@ class PlayerMap {
     }
 
     create_player(player_id,player_coordinates){
+        console.log(`creating new player ${player_id}`);
         let properties = {
             coordinates : player_coordinates,
-            player_id:player_id,
-            closest_target:this.closest_target(player_id)
+            player_id:player_id
         }
         this.map.set(player_id,properties);
+        properties.closest_target = this.closest_target(player_id)
     }
 
     closest_target(player_id){
@@ -48,6 +49,7 @@ class PlayerMap {
         properties.coordinates = coordinates;
         //find the new closest target
         let new_closest_target = this.closest_target(player_id);
+        console.log({new_closest_target});
         //get the difference between new closest target distance and previous closest target distance
         let closest_target_difference = new_closest_target.distance - properties.closest_target.distance
         //todo: need to deal with edge cases:
@@ -56,6 +58,7 @@ class PlayerMap {
         return closest_target_difference;
     }
     get_player_coordinates(player_id){
+        console.log({player_id});
         return this.map.get(player_id).coordinates;
     }
 

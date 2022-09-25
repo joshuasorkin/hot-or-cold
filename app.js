@@ -111,6 +111,7 @@ io.on('connection',socket=>{
   //get 'chat' event from client and broadcast the message
   socket.on('coordinates',message =>{
     if(!playerMap.player_exists(socket.id)){
+      console.log(`creating new player ${socket.id}`)
       playerMap.create_player(socket.id,message);
     }
     else{
@@ -140,13 +141,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+//load routes
+const RouterLoader = require('./routerLoader');
+const routerLoader = new RouterLoader(app);
+routerLoader.loadRoutes();
+
 
 // error handler
 app.use(function(err, req, res, next) {
