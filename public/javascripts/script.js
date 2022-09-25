@@ -7,14 +7,15 @@ const long = document.querySelector('.long');
 const hotOrCold = document.querySelector('.hot-or-cold');
 const reveal = document.querySelector('.reveal');
 
-let lat_current;
-let long_current;
-let coordinates;
+let lat_prev;
+let long_prev;
+var coordinates;
 
-function testUI(){
-    let coordinates = getCoordinates();
-    lat_current = coordinates.latitude;
-    long_current = coordinates.longitude;
+async function testUI(){
+    coordinates = await getCoordinates();
+    console.log({coordinates});
+    lat_prev= coordinates.latitude;
+    long_prev = coordinates.longitude;
     lat.innerText = lat_current;
     long.innerText = long_current;
     hotOrCold.innerText = "hot or cold";
@@ -24,21 +25,29 @@ function testUI(){
 function createCoordinatesObject(position){
     console.log(position.coords.latitude);
     console.log(position.coords.longitude);
-    output = {
+    return {
         latitude:position.coords.latitude,
         longitude:position.coords.longitude
     };
 }
 
-function getCoordinates(){
-    navigator.geolocation.getCurrentPosition(position => {
-        coordinates = createCoordinatesObject(position);
+async function getCoordinates(){
+    let position = await getPosition();
+    return createCoordinatesObject(position);
+}
+
+function setCoordinates(coordinates){
+
+}
+
+function getPosition(){
+    return new Promise((res,rej)=>{
+        navigator.geolocation.getCurrentPosition(res,rej)
     });
-    console.log({coordinates});
 }
 
 function sameCoordinates(coordinates){
-    return (coordinates.latitude === lat_current && coordinates.longitude === long_current);
+    return (coordinates.latitude === lat_prev && coordinates.longitude === long_prev);
 }
 
 function decideCoordinateTransmission(){
