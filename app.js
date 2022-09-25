@@ -113,6 +113,7 @@ io.on('connection',socket=>{
   console.log(`new socket connected: ${socket.id}`);
   //get 'chat' event from client and broadcast the message
   socket.on('coordinates',message =>{
+    console.log({message});
 
   });
 });

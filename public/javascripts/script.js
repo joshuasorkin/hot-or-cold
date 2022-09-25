@@ -9,22 +9,16 @@ const reveal = document.querySelector('.reveal');
 
 let lat_prev;
 let long_prev;
-var coordinates;
 
 async function testUI(){
-    coordinates = await getCoordinates();
+    let coordinates = await getCoordinates();
     console.log({coordinates});
-    lat_prev= coordinates.latitude;
-    long_prev = coordinates.longitude;
-    lat.innerText = lat_current;
-    long.innerText = long_current;
-    hotOrCold.innerText = "hot or cold";
+    updateCoordinates(coordinates);
+    hotOrCold.innerText = "Let's play 'Hot or Cold'!";
     reveal.innerText = "reveal";
 }
 
 function createCoordinatesObject(position){
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
     return {
         latitude:position.coords.latitude,
         longitude:position.coords.longitude
@@ -47,13 +41,29 @@ function getPosition(){
 }
 
 function sameCoordinates(coordinates){
+    console.log({coordinates});
+    console.log({lat_prev});
+    console.log({long_prev});
     return (coordinates.latitude === lat_prev && coordinates.longitude === long_prev);
 }
 
-function decideCoordinateTransmission(){
-    coordinates = getCoordinates();
+function updateCoordinates(coordinates){
+    lat_prev = coordinates.latitude;
+    long_prev = coordinates.longitude;
+    lat.innerText = lat_prev;
+    long.innerText = long_prev;
+}
+
+async function decideCoordinateTransmission(){
+    coordinates = await getCoordinates();
     if (!sameCoordinates(coordinates)){
+        console.log(`coordinates changed, sending`);
         transmitCoordinates(coordinates);
+        updateCoordinates(coordinates);
+        
+    }
+    else{
+        console.log(`same coordinates, don't send`);
     }
 }
 
