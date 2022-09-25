@@ -1,3 +1,4 @@
+require('dotenv').config();
 const PlayerMap = require('./player-map');
 
 var express = require('express');
@@ -111,7 +112,6 @@ io.on('connection',socket=>{
   //get 'chat' event from client and broadcast the message
   socket.on('coordinates',message =>{
     if(!playerMap.player_exists(socket.id)){
-      console.log(`creating new player ${socket.id}`)
       playerMap.create_player(socket.id,message);
     }
     else{

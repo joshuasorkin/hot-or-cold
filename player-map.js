@@ -2,9 +2,18 @@ const Haversine = require('haversine');
 class PlayerMap {
     constructor(){
         this.map = new Map();
+        this.make_default_player();
     }
     get_map(){
         return this.map;
+    }
+
+    make_default_player(){
+        let coordinates = {
+            latitude:process.env.LATITUDE_DEFAULT,
+            longitude:process.env.LONGITUDE_DEFAULT
+        }
+        this.create_player(process.env.PLAYER_ID_DEFAULT,coordinates);
     }
 
     create_player(player_id,player_coordinates){
