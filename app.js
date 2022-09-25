@@ -1,3 +1,5 @@
+const PlayerMap = require('./player-map');
+
 var express = require('express');
 var app = express();
 
@@ -102,18 +104,17 @@ const io = require('socket.io')(server,{
 });
 const cors = require('cors');
 
-
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const playerMap = new PlayerMap();
 
 io.on('connection',socket=>{
   console.log(`new socket connected: ${socket.id}`);
   //get 'chat' event from client and broadcast the message
   socket.on('coordinates',message =>{
-    console.log({message});
-
+    playerMap.set_player(socket.id,message);
   });
+  socket.on('disconnect',message=>{
+    
+  })
 });
 
 
