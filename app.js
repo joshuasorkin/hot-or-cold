@@ -107,8 +107,6 @@ const cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-
-
 io.on('connection',socket=>{
   console.log(`new socket connected: ${socket.id}`);
   //get 'chat' event from client and broadcast the message
