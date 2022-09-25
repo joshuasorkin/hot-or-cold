@@ -39,7 +39,7 @@ class PlayerMap {
     }
 
     get_coordinate_distance(coordinates_1,coordinates_2){
-        return Haversine(coordinates_1,coordinates_2,{unit: meter});
+        return Haversine(coordinates_1,coordinates_2,{unit: 'meter'});
     }
 
     update_player_coordinates(player_id,coordinates){
