@@ -48,8 +48,8 @@ class PlayerMap {
     }
 
     get_rounded_coordinates(coordinates){
-        lat_round = coordinates.latitude.toFixed(4);
-        long_round = coordinates.longitude.toFixed(4);
+        let lat_round = coordinates.latitude.toFixed(4);
+        let long_round = coordinates.longitude.toFixed(4);
         return {
             latitude:lat_round,
             longitude:long_round
