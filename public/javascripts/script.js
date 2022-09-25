@@ -12,7 +12,6 @@ let long_current;
 
 function testUI(){
     let coordinates = getCoordinates();
-    console.log({coordinates});
     lat_current = coordinates.latitude;
     long_current = coordinates.longitude;
     lat.innerText = lat_current;
@@ -28,8 +27,11 @@ function getCoordinates(){
             latitude:position.coords.latitude,
             longitude:position.coords.longitude
         }
+    })
+    .then(coordinates => {
+        console.log({coordinates});
+        return coordinates;
     });
-    return coordinates;
 }
 
 function sameCoordinates(coordinates){
