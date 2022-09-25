@@ -117,14 +117,20 @@ io.on('connection',socket=>{
     else{
       let distance_difference =
       playerMap.update_player_coordinates(socket.id,message);
-      if(distance_difference > 0){
-        io.to(socket.id).emit('hot-or-cold','cold');
-      }
-      if(distance_difference < 0){
-        io.to(socket.id).emit('hot-or-cold','hot');
-      }
-      if(distance_difference === 0){
+      //if distance to target is 0, player is at target
+      if (playerMap.get_player_properties(socket.id).closest_target.distance === 0){
         io.to(socket.id).emit('hot-or-cold','fusion');
+      }
+      else{
+        if(distance_difference > 0){
+          io.to(socket.id).emit('hot-or-cold','cold');
+        }
+        if(distance_difference < 0){
+          io.to(socket.id).emit('hot-or-cold','hot');
+        }
+        if(distance_difference === 0){
+          io.to(socket.id).emit('hot-or-cold','');
+        }
       }
     }
   });
