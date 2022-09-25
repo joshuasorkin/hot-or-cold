@@ -24,14 +24,12 @@ function getCoordinates(){
     let coordinates = navigator.geolocation.getCurrentPosition((position) => {
         console.log(position.coords.latitude);
         return {
-            latitude:position.coords.latitude,
-            longitude:position.coords.longitude
+            "latitude":position.coords.latitude,
+            "longitude":position.coords.longitude
         }
     })
-    .then(coordinates => {
-        console.log({coordinates});
-        return coordinates;
-    });
+    console.log({coordinates});
+    return coordinates;
 }
 
 function sameCoordinates(coordinates){
