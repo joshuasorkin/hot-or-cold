@@ -47,8 +47,19 @@ class PlayerMap {
         }
     }
 
+    get_rounded_coordinates(coordinates){
+        lat_round = coordinates.latitude.toFixed(4);
+        long_round = coordinates.longitude.toFixed(4);
+        return {
+            latitude:lat_round,
+            longitude:long_round
+        }
+    }
+
+    //using rounded coordinates to smooth out GPS fluctuation
     get_coordinate_distance(coordinates_1,coordinates_2){
-        return Haversine(coordinates_1,coordinates_2,{unit: 'meter'});
+        return Haversine(this.get_rounded_coordinates(coordinates_1),
+                            this.get_rounded_coordinates(coordinates_2),{unit: 'meter'});
     }
 
     update_player_coordinates(player_id,coordinates){

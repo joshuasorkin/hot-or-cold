@@ -123,6 +123,9 @@ io.on('connection',socket=>{
       if(distance_difference < 0){
         io.to(socket.id).emit('hot-or-cold','hot');
       }
+      if(distance_difference === 0){
+        io.to(socket.id).emit('hot-or-cold','fusion');
+      }
     }
   });
   socket.on('disconnect',message=>{
