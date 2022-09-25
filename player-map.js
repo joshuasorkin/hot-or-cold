@@ -24,3 +24,5 @@ class PlayerMap {
     }
 
 }
+
+module.exports = PlayerMap
