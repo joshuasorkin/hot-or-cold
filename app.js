@@ -129,12 +129,13 @@ io.on('connection',socket=>{
           io.to(socket.id).emit('hot-or-cold','hot');
         }
         if(distance_difference === 0){
-          io.to(socket.id).emit('hot-or-cold','');
+          io.to(socket.id).emit('hot-or-cold','***');
         }
       }
     }
   });
   socket.on('disconnect',message=>{
+    console.log(`removing player ${socket.id}`);
     playerMap.remove_player(socket.id);
   })
 });
