@@ -110,10 +110,16 @@ io.on('connection',socket=>{
   console.log(`new socket connected: ${socket.id}`);
   //get 'chat' event from client and broadcast the message
   socket.on('coordinates',message =>{
-    playerMap.set_player(socket.id,message);
+    if(!playerMap.player_exists(socket.id)){
+      playerMap.create_player(socket.id,message);
+    }
+    else{
+      let coordinates_prev =
+      playerMap.update_player_coordinates(socket.id,message);
+    }
   });
   socket.on('disconnect',message=>{
-    
+    playerMap.remove_player(socket.id);
   })
 });
 
