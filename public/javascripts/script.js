@@ -67,6 +67,19 @@ async function decideCoordinateTransmission(){
     }
 }
 
+function startAccelerometerListener(){
+    const acl = new Accelerometer({ frequency: 60 });
+    acl.addEventListener("reading", () => {
+        let data = {
+            x:acl.x,
+            y:acl.y,
+            z:acl.z
+        }
+        socket.emit('accelerometer',data);
+    });
+    acl.start();
+}
+
 function renderHotOrCold(message){
     hotOrCold.innerText = message;
 }

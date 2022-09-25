@@ -109,7 +109,11 @@ const playerMap = new PlayerMap();
 
 io.on('connection',socket=>{
   console.log(`new socket connected: ${socket.id}`);
-  //get 'chat' event from client and broadcast the message
+
+  socket.on('accelerometer',accelerometer =>{
+    console.log({accelerometer});
+  });
+
   socket.on('coordinates',message =>{
     if(!playerMap.player_exists(socket.id)){
       playerMap.create_player(socket.id,message);
