@@ -19,7 +19,7 @@ async function testUI(){
     console.log({coordinates});
     updateCoordinates(coordinates);
     hotOrCold.innerText = "Let's play 'Hot or Cold'!";
-    reveal.innerText = "reveal";
+    reveal.innerText = "-------";
 }
 
 function createCoordinatesObject(position){
