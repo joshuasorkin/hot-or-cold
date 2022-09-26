@@ -6,6 +6,7 @@ const lat = document.querySelector('.lat');
 const long = document.querySelector('.long');
 const hotOrCold = document.querySelector('.hot-or-cold');
 const reveal = document.querySelector('.reveal');
+const accelerometer = document.querySelector('.accelerometer');
 
 let lat_prev;
 let long_prev;
@@ -76,8 +77,17 @@ function startAccelerometerListener(){
             z:acl.z
         }
         socket.emit('accelerometer',data);
+        renderAccelerometer(data);
     });
     acl.start();
+}
+
+function renderAccelerometer(data){
+    let output = 
+        `x: ${data.x}\n
+        y: ${data.y}\n
+        z: ${data.z}`
+    accelerometer.innerText = output;
 }
 
 function renderHotOrCold(message){
@@ -103,6 +113,10 @@ socket.on('hot-or-cold',message=>{
 
 socket.on('reveal',message=>{
     renderReveal(message)
+})
+
+socket.on('accelerometer',message=>{
+
 })
 
 

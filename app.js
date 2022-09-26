@@ -111,7 +111,7 @@ io.on('connection',socket=>{
   console.log(`new socket connected: ${socket.id}`);
 
   socket.on('accelerometer',accelerometer =>{
-    console.log({accelerometer});
+    //console.log({accelerometer});
   });
 
   socket.on('coordinates',message =>{
@@ -122,18 +122,20 @@ io.on('connection',socket=>{
       let distance_difference =
       playerMap.update_player_coordinates(socket.id,message);
       //if distance to target is 0, player is at target
-      if (playerMap.get_player_properties(socket.id).closest_target.distance === 0){
+      let player_properties = playerMap.get_player_properties(socket.id);
+      let target_distance = player_properties.closest_target.distance;
+      if (target_distance === 0){
         io.to(socket.id).emit('hot-or-cold','fusion');
       }
       else{
         if(distance_difference > 0){
-          io.to(socket.id).emit('hot-or-cold','cold');
+          io.to(socket.id).emit('hot-or-cold',`cold\ndistance:${target_distance}\ndifference: +${distance_difference}`);
         }
         if(distance_difference < 0){
-          io.to(socket.id).emit('hot-or-cold','hot');
+          io.to(socket.id).emit('hot-or-cold',`hot\ndistance: ${target_distance}\ndifference: -${distance_difference}`);
         }
         if(distance_difference === 0){
-          io.to(socket.id).emit('hot-or-cold','***');
+          io.to(socket.id).emit('hot-or-cold',`***\ndistance: ${target_distance}`);
         }
       }
     }
