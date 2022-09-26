@@ -76,7 +76,6 @@ function startAccelerometerListener(){
             z:acl.z
         }
         socket.emit('accelerometer',data);
-        renderAccelerometer(data);
     });
     acl.start();
 }
