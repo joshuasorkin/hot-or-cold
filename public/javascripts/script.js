@@ -10,6 +10,9 @@ const accelerometer = document.querySelector('.accelerometer');
 
 let lat_prev;
 let long_prev;
+let geolocationOptions = {
+    desiredAccuracy:10
+}
 
 async function testUI(){
     let coordinates = await getCoordinates();
@@ -31,13 +34,9 @@ async function getCoordinates(){
     return createCoordinatesObject(position);
 }
 
-function setCoordinates(coordinates){
-
-}
-
 function getPosition(){
     return new Promise((res,rej)=>{
-        navigator.geolocation.getCurrentPosition(res,rej)
+        navigator.geolocation.getAccurateCurrentPosition(res,rej,null,geolocationOptions)
     });
 }
 
