@@ -11,7 +11,7 @@ const accelerometer = document.querySelector('.accelerometer');
 let lat_prev;
 let long_prev;
 let geolocationOptions = {
-    desiredAccuracy:10
+    desiredAccuracy:1
 }
 
 async function testUI(){
