@@ -22,6 +22,12 @@ async function testUI(){
     reveal.innerText = "-------";
 }
 
+//todo: implement userID for use in persisting identity when 
+// user moves from wifi to cell network and websocket ID changes
+function createRandomUserID(){
+
+}
+
 function createCoordinatesObject(position){
     return {
         latitude:position.coords.latitude,

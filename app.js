@@ -114,6 +114,11 @@ io.on('connection',socket=>{
     //console.log({accelerometer});
   });
 
+  socket.on('reveal',message=>{
+    
+
+  });
+
   socket.on('coordinates',message =>{
     if(!playerMap.player_exists(socket.id)){
       playerMap.create_player(socket.id,message);
